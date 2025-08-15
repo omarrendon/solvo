@@ -1,12 +1,13 @@
 // Services
 import { getMovieById, getPlanetsById } from "@/services/moviesServices";
+// Pages
+import { notFound } from "next/navigation";
 // Components
 import Image from "next/image";
 import Link from "next/link";
-// Pages
-import { notFound } from "next/navigation";
-// Icons
-import { CircleUser, Clock4 } from "lucide-react";
+import CardPlanet from "@/app/components/CardPlanet";
+import OpeningInfo from "@/app/components/OpeningInfo";
+import FooterDetailMovie from "@/app/components/FooterDetailMovie";
 
 interface MovieDetailsProps {
   params: Promise<{
@@ -50,62 +51,18 @@ export default async function Page({ params }: MovieDetailsProps) {
         </Link>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 max-w-8xl mx-auto">
           <div className="col-span-10 md:col-span-6 space-y-8">
-            <div className="w-full md:w-full lg:w-lg">
-              <h2 className="text-lg mb-3">Opening</h2>
-              <div className="space-y-4 text-gray-300 text-md leading-relaxed">
-                <p>{dataMovie.opening_crawl}</p>
-              </div>
-            </div>
+            <OpeningInfo openingCrawl={dataMovie.opening_crawl} />
             <div className="space-y-3 text-sm">
-              <div className="flex items-center space-x-3">
-                <div className="w-5 h-5 flex items-center justify-center">
-                  <Clock4 size={20} color="#FFFF" />
-                </div>
-                <span>{dataMovie.release_date}</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-5 h-5 flex items-center justify-center">
-                  <CircleUser size={20} color="#FFFF" />
-                </div>
-                <span>{dataMovie.director}</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-5 h-5 flex items-center justify-center">
-                  <CircleUser size={20} color="#FFFF" />
-                </div>
-                <span>{dataMovie.producer}</span>
-              </div>
+              <FooterDetailMovie
+                release_date={dataMovie.release_date}
+                director={dataMovie.director}
+                producer={dataMovie.producer}
+              />
             </div>
             <div className="w-full md:w-full lg:w-lg h-px bg-[#28282A] my-8" />
           </div>
           <div className="col-span-10 md:col-span-6 ">
-            <h2 className="text-2xl font-semibold mb-4">Planets</h2>
-            <div className="grid grid-rows-1 gap-6 ">
-              {planets.map((planet, index) => (
-                <div
-                  key={index}
-                  className="bg-[#26262A] rounded-xl p-4 relative"
-                >
-                  <div className="flex justify-between items-start">
-                    <div className="space-y-2">
-                      <h3 className="font-medium text-lg">{planet?.name}</h3>
-                      <p className="text-sm text-[#A2A2A2] space-y-1">
-                        {planet?.population} población
-                      </p>
-                      <p className="text-sm text-[#A2A2A2] space-y-1">
-                        {planet?.diameter} km de diámetro
-                      </p>
-                      <p className="text-sm text-[#A2A2A2] space-y-1">
-                        Período de rotación: {planet?.rotation_period} días
-                      </p>
-                    </div>
-                    <button className="bg-[#6F00ED] hover:bg-purple-700 px-4 py-2 rounded-md text-sm transition-colors">
-                      Ver más
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <CardPlanet planets={planets} />
           </div>
         </div>
       </div>

@@ -9,13 +9,13 @@ import { notFound } from "next/navigation";
 import { CircleUser, Clock4 } from "lucide-react";
 
 interface MovieDetailsProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function Page({ params }: MovieDetailsProps) {
-  const movieId = await params.id;
+  const { id: movieId } = await params;
   const dataMovie = await getMovieById(movieId);
   const planets = await Promise.all(
     dataMovie.planets.map(planetUrl => {

@@ -1,5 +1,5 @@
 // Icons
-import { ArrowRight, Link } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 interface CardMovieProps {
   title: string;
@@ -15,7 +15,7 @@ export default function CardMovie({ title }: CardMovieProps) {
         <span className="text-xs text-neutral-400  hover:text-yellow-400">
           Ver más
         </span>
-        <ArrowRight color="#FFFF" size={20} />
+        <ArrowRight color="#FFFF" size={20} className="hover:text-yellow-400" />
       </div>
     </div>
   );
